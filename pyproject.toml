@@ -1,0 +1,18 @@
+
+[project]
+name = "MPU-Class-Time-Generator"
+version = "0.1.0"
+description = "Generate MPU class time in a more user-friendly way"
+authors = [
+    {name = "Benjamin Chau", email = "68836494+swarfte@users.noreply.github.com"},
+]
+dependencies = [
+    "requests>=2.31.0",
+]
+requires-python = ">=3.10"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
