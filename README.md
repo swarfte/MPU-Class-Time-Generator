@@ -2,4 +2,6 @@
 
 Generate MPU class time in a more user-friendly way
 
+data source : https://wapps2.ipm.edu.mo/siweb_cas/time_stud.asp
+
 [![pdm-managed](https://img.shields.io/badge/pdm-managed-blueviolet)](https://pdm.fming.dev)
