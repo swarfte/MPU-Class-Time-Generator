@@ -3,7 +3,11 @@ from overrides import override
 import os
 
 
-class AbstractSaver(ABC):
+class AbstractWriter(ABC):
+    """
+    Abstract class for writing data to the given path
+    """
+
     def __init__(self, data: str | list | dict) -> None:
         self.data: str | list | dict = data
         self.root_path: str = "./temp/"
@@ -27,7 +31,7 @@ class AbstractSaver(ABC):
         pass
 
 
-class HTMLSaver(AbstractSaver):
+class HTMLWriter(AbstractWriter):
     """
     this class is used to save the html to the path
     """
@@ -37,6 +41,6 @@ class HTMLSaver(AbstractSaver):
         self.extension_name: str = ".html"
 
     @override
-    def save_as(self, path: str) -> None:
-        with open(self.root_path + path + self.extension_name, 'w') as f:
+    def save_as(self, file_name: str) -> None:
+        with open(self.root_path + file_name + self.extension_name, 'w') as f:
             f.write(self.data)

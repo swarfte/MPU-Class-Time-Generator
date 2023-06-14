@@ -3,5 +3,5 @@
 .pdm-python
 .venv
 .pdm-build
-temp
+temp/original_timetable.html
 __pycache__
