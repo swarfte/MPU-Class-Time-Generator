@@ -22,10 +22,10 @@ class AbstractWriter(ABC):
             os.makedirs(self.root_path)
 
     @abstractmethod
-    def save_as(self, path: str) -> None:
+    def save_as(self, file_name: str) -> bool:
         """
         Save the data to the path
-        :param path: the relative path to save the data
+        :param file_name: the relative path to save the data
         :return: None
         """
         pass
@@ -41,6 +41,10 @@ class HTMLWriter(AbstractWriter):
         self.extension_name: str = ".html"
 
     @override
-    def save_as(self, file_name: str) -> None:
+    def save_as(self, file_name: str) -> bool:
         with open(self.root_path + file_name + self.extension_name, 'w') as f:
             f.write(self.data)
+        return self.check_file_exist(file_name)
+
+    def check_file_exist(self, file_name: str) -> bool:
+        return os.path.exists(self.root_path + file_name + self.extension_name)

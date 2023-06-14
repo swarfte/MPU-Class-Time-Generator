@@ -8,8 +8,9 @@ class AbstractSelector(ABC):
     Abstract class for selecting data from the given data
     """
 
-    def __init__(self, data: str | list | dict) -> None:
-        self.data: str | list | dict = data
+    def __init__(self, data: object) -> None:
+        self.original_data: object = data
+        self.filtered_data: str | list | dict = self.filter()
 
     @abstractmethod
     def filter(self) -> str | list | dict:
@@ -18,6 +19,9 @@ class AbstractSelector(ABC):
         :return: filtered data
         """
         pass
+
+    def get_data(self) -> str | list | dict:
+        return self.filtered_data
 
 
 class TableSelector(AbstractSelector):
@@ -35,6 +39,6 @@ class TableSelector(AbstractSelector):
         Filter the original data
         :return: filtered data
         """
-        soup: bs4.BeautifulSoup = bs4.BeautifulSoup(self.data, features="html.parser")
+        soup: bs4.BeautifulSoup = bs4.BeautifulSoup(self.original_data, features="html.parser")
         table: bs4.ResultSet = soup.find_all('table')
         return table
