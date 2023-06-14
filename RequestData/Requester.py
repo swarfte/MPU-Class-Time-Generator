@@ -44,6 +44,10 @@ class PlaywrightRequester(AbstractRequester):
         return self.timetable_page.content()
 
     def requestTimetablePage(self) -> Page:
+        """
+        Request the timetable page from SIweb using playwright
+        :return:
+        """
         with sync_playwright() as playwright:
             page: Page = self.run(playwright)
         return page
