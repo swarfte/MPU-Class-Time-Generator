@@ -21,6 +21,10 @@ class AbstractSelector(ABC):
 
 
 class TableSelector(AbstractSelector):
+    """
+    this class is used to select the table from the html
+    """
+
     def __init__(self, data: str, expression: str) -> None:
         super().__init__(data)
         self.expression: str = expression
