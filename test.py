@@ -3,6 +3,7 @@ import tests.test_Reader as test_Reader
 import tests.test_Writer as test_Writer
 import tests.test_Selector as test_Selector
 import tests.test_Filter as test_Filter
+import tests.test_User as test_User
 
 
 def run():
@@ -10,7 +11,8 @@ def run():
         test_Writer,
         test_Reader,
         test_Selector,
-        test_Filter
+        test_Filter,
+        test_User
     ]  # order is important
 
     all_suit: list[unittest.TestSuite] = [
