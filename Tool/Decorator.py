@@ -6,11 +6,11 @@ keywords = {
 }
 
 
-class BaseDecorator(object):  # 裝飾函數的裝飾器
+class AbstractDecorator(object):  # 裝飾函數的裝飾器
     """ Basic decorators are used to extend other functions  """
 
     def __init__(self, *args, **kwargs):  # 獲取裝飾器初始化的傳入參數
-        super(BaseDecorator, self).__init__()
+        super(AbstractDecorator, self).__init__()
         self.func = None  # 被裝飾的函數
         self.func_args = None  # 被裝飾函數的可變位置參數
         self.func_kwargs = None  # 被裝飾函數的關鍵字參數
@@ -54,7 +54,7 @@ class BaseDecorator(object):  # 裝飾函數的裝飾器
         pass
 
 
-class RunTimeMonitor(BaseDecorator):  # 記錄被裝飾函數的運行時間
+class RunTimeMonitor(AbstractDecorator):  # 記錄被裝飾函數的運行時間
     """Record the running time of the decorated function"""
 
     def __init__(self, sentence: str = keywords["default"]):

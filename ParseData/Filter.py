@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
-from overrides import override
-import tool.decorator as decorator
+import Tool.Decorator as Decorator
 
 
 class AbstractFilter(ABC):
@@ -20,7 +19,7 @@ class AbstractFilter(ABC):
         """
         pass
 
-    @decorator.RunTimeMonitor("AbstractFilter: get_data")
+    @Decorator.RunTimeMonitor("AbstractFilter: get_data")
     def get_data(self) -> str | list | dict:
         """
         Get the filtered data
@@ -40,8 +39,7 @@ class NBSPFilter(AbstractFilter):
         super().__init__(data)
         self.original_data: str = data
 
-    @decorator.RunTimeMonitor("NBSPFilter: filter")
-    @override
+    @Decorator.RunTimeMonitor("NBSPFilter: filter")
     def filter(self) -> str | list | dict:
         """
         filter the nbsp from the html

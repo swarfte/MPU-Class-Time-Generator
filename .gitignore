@@ -4,4 +4,5 @@
 .venv
 .pdm-build
 temp/source.html
+temp/timetable.html
 __pycache__

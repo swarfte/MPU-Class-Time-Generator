@@ -1,5 +1,5 @@
 import unittest
-import ManageData.Writer as Writer
+import ManipulateData.Writer as Writer
 
 
 class WriterTestCase(unittest.TestCase):

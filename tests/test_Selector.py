@@ -60,4 +60,5 @@ class SelectorTestCase(unittest.TestCase):
     def test_TableSelector(self) -> None:
         selector: Selector.AbstractSelector = Selector.TableSelector(self.data)
         result: str = selector.get_data()
+        print(result)
         self.assertTrue(self.check_table(result))

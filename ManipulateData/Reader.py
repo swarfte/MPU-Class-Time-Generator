@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
-from overrides import override
-import tool.decorator as decorator
+import Tool.Decorator as Decorator
 import os
 
 
@@ -15,7 +14,7 @@ class AbstracterReader(ABC):
         self.check_root_path()
         self.data: object = None
 
-    @decorator.RunTimeMonitor("AbstracterReader: check_root_path")
+    @Decorator.RunTimeMonitor("AbstracterReader: check_root_path")
     def check_root_path(self) -> None:
         """
         Check if the root path is existed, if not, throw an error
@@ -31,7 +30,7 @@ class AbstracterReader(ABC):
         """
         pass
 
-    @decorator.RunTimeMonitor("AbstracterReader: get_data")
+    @Decorator.RunTimeMonitor("AbstracterReader: get_data")
     def get_data(self) -> str | list | dict:
         if self.data is None:
             self.data = self.read()
@@ -47,8 +46,7 @@ class HTMLReader(AbstracterReader):
         self.extension_name: str = ".html"
         super().__init__(file_name)
 
-    @decorator.RunTimeMonitor("HTMLReader: read")
-    @override
+    @Decorator.RunTimeMonitor("HTMLReader: read")
     def read(self) -> str | list | dict:
         with open(self.root_path + self.relative_path + self.extension_name, 'r') as f:
             return f.read()

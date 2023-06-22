@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
-from overrides import override
-import tool.decorator as decorator
+import Tool.Decorator as Decorator
 import bs4
 
 
@@ -21,7 +20,7 @@ class AbstractSelector(ABC):
         """
         pass
 
-    @decorator.RunTimeMonitor("AbstractSelector: get_data")
+    @Decorator.RunTimeMonitor("AbstractSelector: get_data")
     def get_data(self) -> str | list | dict:
         if self.selected_data is None:
             self.selected_data = self.selects()
@@ -45,8 +44,7 @@ class TableSelector(AbstractSelector):
         self.expression: dict = expression
         super().__init__(data)
 
-    @decorator.RunTimeMonitor("TableSelector: selects")
-    @override
+    @Decorator.RunTimeMonitor("TableSelector: selects")
     def selects(self) -> str | list | dict:
         """
         Filter the original data

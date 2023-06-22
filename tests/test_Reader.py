@@ -1,5 +1,5 @@
 import unittest
-import ManageData.Reader as Reader
+import ManipulateData.Reader as Reader
 
 
 class ReaderTestCase(unittest.TestCase):
