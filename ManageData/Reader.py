@@ -12,7 +12,7 @@ class AbstracterReader(ABC):
         self.relative_path: str = relative_path
         self.root_path: str = "./temp/"
         self.check_root_path()
-        self.data: str | list | dict = self.read()
+        self.data: object = None
 
     def check_root_path(self) -> None:
         """
@@ -30,6 +30,8 @@ class AbstracterReader(ABC):
         pass
 
     def get_data(self) -> str | list | dict:
+        if self.data is None:
+            self.data = self.read()
         return self.data
 
 
@@ -46,6 +48,3 @@ class HTMLReader(AbstracterReader):
     def read(self) -> str | list | dict:
         with open(self.root_path + self.relative_path + self.extension_name, 'r') as f:
             return f.read()
-
-    def get_data(self) -> str:
-        return self.data
