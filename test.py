@@ -2,13 +2,15 @@ import unittest
 import tests.test_Reader as test_Reader
 import tests.test_Writer as test_Writer
 import tests.test_Selector as test_Selector
+import tests.test_Filter as test_Filter
 
 
 def run():
     module_list: list = [
         test_Writer,
         test_Reader,
-        test_Selector
+        test_Selector,
+        test_Filter
     ]  # order is important
 
     all_suit: list[unittest.TestSuite] = [

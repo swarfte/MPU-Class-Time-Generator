@@ -7,10 +7,10 @@ authors = [
     {name = "Benjamin Chau", email = "68836494+swarfte@users.noreply.github.com"},
 ]
 dependencies = [
-    "playwright>=1.35.0",
     "overrides>=7.3.1",
     "beautifulsoup4>=4.12.2",
     "setuptools>=68.0.0",
+    "playwright>=1.35.0",
 ]
 requires-python = ">=3.10"
 readme = "README.md"

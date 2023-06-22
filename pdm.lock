@@ -62,7 +62,7 @@ summary = "Backported and Experimental Type Hints for Python 3.7+"
 lock_version = "4.2"
 cross_platform = true
 groups = ["default"]
-content_hash = "sha256:8ef18eaa35a0cf2f63d55cb603932409cad45d068a08c6d2e7aee0d599f86883"
+content_hash = "sha256:0d1cd3f1ad147b07a1e44ecd2096d9eda3bec33de20b8fc777e0b05c6d422d41"
 
 [metadata.files]
 "beautifulsoup4 4.12.2" = [
