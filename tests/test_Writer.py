@@ -2,15 +2,10 @@ import unittest
 import ManageData.Writer as Writer
 
 
-class HTMLWriterTestCase(unittest.TestCase):
+class WriterTestCase(unittest.TestCase):
     def setUp(self) -> None:
         self.file_name: str = "test"
-
-    def tearDown(self) -> None:
-        self.file_name = None
-
-    def test_HTMLWriter(self) -> None:
-        data: str = """<!DOCTYPE html>
+        self.data: str = """<!DOCTYPE html>
 <html>
 <head>
     <title>Test</title>
@@ -20,7 +15,14 @@ class HTMLWriterTestCase(unittest.TestCase):
 <p>Test</p>
 </body>
 </html>"""
-        writer: Writer.AbstractWriter = Writer.HTMLWriter(data)
-        expected: bool = True
+        self.expected: bool = True
+
+    def tearDown(self) -> None:
+        self.file_name = None
+        self.data = None
+        self.expected = None
+
+    def test_HTMLWriter(self) -> None:
+        writer: Writer.AbstractWriter = Writer.HTMLWriter(self.data)
         result: bool = writer.save_as(self.file_name)
-        self.assertEqual(expected, result)
+        self.assertEqual(self.expected, result)

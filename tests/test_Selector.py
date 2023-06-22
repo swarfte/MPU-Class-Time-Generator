@@ -2,7 +2,7 @@ import unittest
 import ParseData.Selector as Selector
 
 
-class TableSelectorTestCase(unittest.TestCase):
+class SelectorTestCase(unittest.TestCase):
     def setUp(self) -> None:
         self.data: str = """<!DOCTYPE html>
 <html>
@@ -27,7 +27,6 @@ class TableSelectorTestCase(unittest.TestCase):
         </table>
     </body>
 </html>"""
-        # self.expression: str = "body > strong:nth-child(2) > table:nth-child(3)"
 
     def tearDown(self) -> None:
         self.data = None

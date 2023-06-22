@@ -2,16 +2,10 @@ import unittest
 import ManageData.Reader as Reader
 
 
-class HTMLReaderTestCase(unittest.TestCase):
+class ReaderTestCase(unittest.TestCase):
     def setUp(self) -> None:
         self.file_name: str = "test"
-
-    def tearDown(self) -> None:
-        self.file_name = None
-
-    def test_HTMLReader(self) -> None:
-        reader: Reader.AbstracterReader = Reader.HTMLReader(self.file_name)
-        expected: str = """<!DOCTYPE html>
+        self.expected: str = """<!DOCTYPE html>
 <html>
 <head>
     <title>Test</title>
@@ -21,5 +15,11 @@ class HTMLReaderTestCase(unittest.TestCase):
 <p>Test</p>
 </body>
 </html>"""
+
+    def tearDown(self) -> None:
+        self.file_name = None
+
+    def test_HTMLReader(self) -> None:
+        reader: Reader.AbstracterReader = Reader.HTMLReader(self.file_name)
         result: str = reader.get_data()
-        self.assertEqual(expected, result)
+        self.assertEqual(self.expected, result)
