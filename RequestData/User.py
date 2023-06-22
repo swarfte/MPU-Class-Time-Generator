@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import tool.decorator as decorator
 
 
 class AbstractUser(ABC):
@@ -10,9 +11,11 @@ class AbstractUser(ABC):
         self.username: str = username
         self.password: str = password
 
+    @decorator.RunTimeMonitor("AbstractUser: get_username")
     def get_username(self) -> str:
         return self.username
 
+    @decorator.RunTimeMonitor("AbstractUser: get_password")
     def get_password(self) -> str:
         return self.password
 

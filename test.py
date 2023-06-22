@@ -8,11 +8,11 @@ import tests.test_User as test_User
 
 def run():
     module_list: list = [
+        test_User,
         test_Writer,
         test_Reader,
         test_Selector,
         test_Filter,
-        test_User
     ]  # order is important
 
     all_suit: list[unittest.TestSuite] = [

@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from overrides import override
+import tool.decorator as decorator
 
 
 class AbstractFilter(ABC):
@@ -19,6 +20,7 @@ class AbstractFilter(ABC):
         """
         pass
 
+    @decorator.RunTimeMonitor("AbstractFilter: get_data")
     def get_data(self) -> str | list | dict:
         """
         Get the filtered data
@@ -38,6 +40,7 @@ class NBSPFilter(AbstractFilter):
         super().__init__(data)
         self.original_data: str = data
 
+    @decorator.RunTimeMonitor("NBSPFilter: filter")
     @override
     def filter(self) -> str | list | dict:
         """
