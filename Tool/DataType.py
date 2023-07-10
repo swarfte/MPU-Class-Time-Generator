@@ -62,15 +62,15 @@ class CSV(AbstractDataType):
         self.init_context()
 
     def init_header(self) -> None:
-        self.output_data += self.get_row(self.header)
+        self.output_data += self.list_to_row(self.header)
 
     def init_context(self) -> None:
         for record in self.original_data:
-            self.output_data += self.get_row(record)
+            self.output_data += self.list_to_row(record)
 
-    def get_row(self, record: list[str | int | float]) -> str:
+    def list_to_row(self, record: list[str | int | float]) -> str:
         """
-        get a list as a record then return the row in csv as str type
+        give a list as a record then return the row in csv as str type
         :param record:
         :return:
         """

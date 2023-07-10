@@ -46,3 +46,67 @@ class NBSPFilter(AbstractFilter):
         :return: data without nbsp
         """
         return self.original_data.replace(" ", " ")
+
+
+class HeaderFilter(AbstractFilter):
+    """
+    this class is used to filter the header from the html table
+    """
+
+    def __init__(self, header: list[str]):
+        super().__init__(header)
+        self.original_data: list[str] = header
+
+    @Decorator.RunTimeMonitor("HeaderFilter: filter")
+    def filter(self) -> list[str]:
+        """
+        filter the space and \n in the header
+        :return: the new header without space and \n
+        """
+        return [str.strip(column) for column in self.original_data]
+
+
+class RecordFilter(AbstractFilter):
+    """
+    this class is used to filter the records from the html table
+    """
+
+    def __init__(self, records: list[list[str]]):
+        super().__init__(records)
+        self.original_data: list[list[str]] = records
+
+    @Decorator.RunTimeMonitor("RecordFilter: filter")
+    def filter(self) -> list[list[str]]:
+        """
+        filter the space and \n in the records
+        :return: the new records without space and \n
+        """
+        filterer_data: list[list[str]] = []
+        for record in self.original_data:
+            temp_record: list[str] = record[:]
+            if not self.detect_subject(record):
+                temp_record.insert(0, "")  # insert an empty value for the sem column
+                temp_record.insert(0, "")  # insert an empty value for the class code column
+            filterer_data.append(self.filter_subject_record(temp_record))
+        return filterer_data
+
+    def detect_subject(self, record: list[str]) -> bool:
+        """
+        to check the row is the header of the subject (include sem, class code, learning module column) or not
+        if not , it means the row is the same subject but different time
+        """
+        number_of_header_subject_column: int = 14
+        number_of_follow_subject_column: int = 12
+
+        if len(record) == number_of_header_subject_column:
+            return True
+        elif len(record) == number_of_follow_subject_column:
+            return False
+        else:
+            raise ValueError("The number of column is not correct")
+
+    def filter_subject_record(self, record: list[str]) -> list[str]:
+        """
+        filter the subject record
+        """
+        return [str.strip(column) for column in record]
