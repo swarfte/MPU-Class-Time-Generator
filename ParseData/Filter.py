@@ -85,8 +85,10 @@ class RecordFilter(AbstractFilter):
         for record in self.original_data:
             temp_record: list[str] = record[:]
             if not self.detect_subject(record):
-                temp_record.insert(0, "")  # insert an empty value for the sem column
-                temp_record.insert(0, "")  # insert an empty value for the class code column
+                temp_record = temp_record[1:]
+                temp_record.insert(0, "null")  # insert an empty value for the sem column
+                temp_record.insert(0, "null")  # insert an empty value for the class code column
+                temp_record.insert(0, "null")  # insert an empty value for the learning module column
             filterer_data.append(self.filter_subject_record(temp_record))
         return filterer_data
 
@@ -109,4 +111,30 @@ class RecordFilter(AbstractFilter):
         """
         filter the subject record
         """
-        return [str.strip(column) for column in record]
+        filterer_record: list[str] = []
+        for column in record:
+            if self.check_week(record, column):
+                if self.check_attend(column):
+                    filterer_record.append("1")
+                else:
+                    filterer_record.append("0")
+            else:
+                filterer_record.append(str.strip(column))
+        return filterer_record
+
+    def check_week(self, record: list[str], column: str) -> bool:
+        """
+        to check the column is the week column or not
+        :param record: the record of the subject
+        :param column: the column of the record
+        :return:
+        """
+        week_index: int = 7
+        return record.index(column) >= week_index
+
+    def check_attend(self, data: str) -> bool:
+        """
+        to check the data is go to school or not
+        """
+        attend_symbol: str = " \n\n"  # the original data is " \n\n" if the student need to go to school
+        return data == attend_symbol
