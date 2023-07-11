@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 import Tool.Decorator as Decorator
 import os
+import csv
 
 
 class AbstracterReader(ABC):
@@ -50,3 +51,19 @@ class HTMLReader(AbstracterReader):
     def read(self) -> str | list | dict:
         with open(self.root_path + self.relative_path + self.extension_name, 'r') as f:
             return f.read()
+
+
+class CSVReader(AbstracterReader):
+    """
+    this class is used to read the csv from the path
+    """
+
+    def __init__(self, file_name: str) -> None:
+        self.extension_name: str = ".csv"
+        super().__init__(file_name)
+
+    @Decorator.RunTimeMonitor("CSVReader: read")
+    def read(self) -> str | list | dict:
+        with open(self.root_path + self.relative_path + self.extension_name, 'r') as f:
+            reader = csv.reader(f)
+            return [row for row in reader]

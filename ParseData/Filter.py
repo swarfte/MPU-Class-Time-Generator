@@ -85,7 +85,7 @@ class RecordFilter(AbstractFilter):
         for record in self.original_data:
             temp_record: list[str] = record[:]
             if not self.detect_subject(record):
-                temp_record = temp_record[1:]
+                temp_record = temp_record[1:]  # remove the empty column
                 temp_record.insert(0, "null")  # insert an empty value for the sem column
                 temp_record.insert(0, "null")  # insert an empty value for the class code column
                 temp_record.insert(0, "null")  # insert an empty value for the learning module column
