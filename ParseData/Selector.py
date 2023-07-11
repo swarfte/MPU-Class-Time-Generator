@@ -53,3 +53,19 @@ class TableSelector(AbstractSelector):
         soup: bs4.BeautifulSoup = bs4.BeautifulSoup(self.original_data, features="html.parser")
         table: bs4.Tag | bs4.NavigableString = soup.find("table", attrs=self.expression)
         return str(table)
+
+
+class EarlyTimeSelector(AbstractSelector):
+    """
+    this class is used to find The earliest class time from the csv table
+    """
+
+    def __init__(self, data: list[list[str]]) -> None:
+        super().__init__(data)
+
+    @Decorator.RunTimeMonitor("EarlyTimeSelector: selects")
+    def selects(self) -> str | list | dict:
+        """
+        Filter the original data
+        :return: filtered data
+        """

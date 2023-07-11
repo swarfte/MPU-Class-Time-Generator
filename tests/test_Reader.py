@@ -28,7 +28,7 @@ class HTMLReaderTestCase(unittest.TestCase):
 
 class CSVReaderTestCase(unittest.TestCase):
     def setUp(self) -> None:
-        self.file_name: str = "timetable"
+        self.file_name: str = "test_timetable"
         self.expected: list[list[str]] = [['Sem',
                                            'Class Code',
                                            'Learning Module',

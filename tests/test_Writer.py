@@ -4,7 +4,7 @@ import ManipulateData.Writer as Writer
 
 class HTMLWriterTestCase(unittest.TestCase):
     def setUp(self) -> None:
-        self.file_name: str = "test"
+        self.file_name: str = "test_htmlPage"
         self.data: str = """<!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +30,7 @@ class HTMLWriterTestCase(unittest.TestCase):
 
 class CSVWriterTestCase(unittest.TestCase):
     def setUp(self) -> None:
-        self.file_name: str = "timetable"
+        self.file_name: str = "test_timetable"
         self.header: list[str] = ['Sem', 'Class Code', 'Learning Module', 'Instructor', 'Venue', 'Period',
                                   'Time',
                                   'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']

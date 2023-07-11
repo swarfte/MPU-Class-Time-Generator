@@ -58,16 +58,26 @@ class CSVWriter(AbstractWriter):
     this class is used to save the csv to the path
     """
 
-    def __init__(self, data: list[list[str], list[list[str]]]) -> None:
+    def __init__(self, data: list[list[str]] | list[list[str], list[list[str]]]) -> None:
         super().__init__(data)
         self.extension_name: str = ".csv"
+        self.header: list[str] = []
+        self.record: list[list[str]] = []
+        self.detect_data()
+
+    def detect_data(self) -> None:
+        self.header = self.data[0]
+        if len(self.data) == 2:
+            self.record = self.data[1]
+        else:
+            self.record = self.data[1:]
 
     @Decorator.RunTimeMonitor("CSVWriter: save_as")
     def save_as(self, file_name: str) -> bool:
         with open(self.root_path + file_name + self.extension_name, 'w') as f:
             writer = csv.writer(f)
-            writer.writerow(self.data[0])  # write the header
-            writer.writerows(self.data[1])  # write the record
+            writer.writerow(self.header)  # write the header
+            writer.writerows(self.record)  # write the record
         return self.check_file_exist(file_name)
 
     @Decorator.RunTimeMonitor("CSVWriter: check_file_exist")

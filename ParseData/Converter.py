@@ -80,7 +80,7 @@ class HTML2CSVConverter(AbstractConverter):
                 record.append(cell.get_text())
             records.append(record)
         filtered_records = self.filter_records(
-            records[:-1])  # remove the last row ( the last row only include the total number of the class)
+            records[:-1])  # remove the last row (the last row only include the total number of the class)
         return filtered_records
 
     def filter_header(self, header: list[str]) -> list[str]:
@@ -89,7 +89,7 @@ class HTML2CSVConverter(AbstractConverter):
         :param header: the header as a str
         :return: filtered header
         """
-        header_filter: Filter.AbstractFilter = Filter.HeaderFilter(header)
+        header_filter: Filter.AbstractFilter = Filter.HeaderFilter(header)  # it can be optimized
         return header_filter.get_data()
 
     def filter_records(self, records: list[list[str]]) -> list[list[str]]:
@@ -98,5 +98,5 @@ class HTML2CSVConverter(AbstractConverter):
         :param records: the records as a str
         :return: filtered records
         """
-        record_filter: Filter.AbstractFilter = Filter.RecordFilter(records)
+        record_filter: Filter.AbstractFilter = Filter.RecordFilter(records)  # it can be optimized
         return record_filter.get_data()
