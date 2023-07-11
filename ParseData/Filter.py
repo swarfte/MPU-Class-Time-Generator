@@ -89,23 +89,30 @@ class RecordFilter(AbstractFilter):
                 temp_record.insert(0, "null")  # insert an empty value for the sem column
                 temp_record.insert(0, "null")  # insert an empty value for the class code column
                 temp_record.insert(0, "null")  # insert an empty value for the learning module column
+                self.adapt_follow_subject(temp_record)
             filterer_data.append(self.filter_subject_record(temp_record))
         return filterer_data
+
+    def adapt_follow_subject(self, temp_record: list[str]) -> None:
+        special_follow_column: int = 5
+        normal_subject_column: int = 12
+        header_subject_column: int = 14
+        if len(temp_record) == header_subject_column or len(temp_record) == normal_subject_column:
+            return
+
+        if len(temp_record) == special_follow_column:
+            for _ in range(header_subject_column - special_follow_column):
+                temp_record.append("null")
+        else:
+            raise ValueError("the number of column is not correct")
 
     def detect_subject(self, record: list[str]) -> bool:
         """
         to check the row is the header of the subject (include sem, class code, learning module column) or not
         if not , it means the row is the same subject but different time
         """
-        number_of_header_subject_column: int = 14
-        number_of_follow_subject_column: int = 12
-
-        if len(record) == number_of_header_subject_column:
-            return True
-        elif len(record) == number_of_follow_subject_column:
-            return False
-        else:
-            raise ValueError("The number of column is not correct")
+        header_subject_column: int = 14
+        return len(record) == header_subject_column
 
     def filter_subject_record(self, record: list[str]) -> list[str]:
         """
