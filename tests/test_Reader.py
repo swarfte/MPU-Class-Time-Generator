@@ -21,7 +21,7 @@ class HTMLReaderTestCase(unittest.TestCase):
         self.file_name = None
 
     def test_HTMLReader(self) -> None:
-        reader: Reader.AbstracterReader = Reader.HTMLReader(self.file_name)
+        reader: Reader.AbstractReader = Reader.HTMLReader(self.file_name)
         result: str = reader.get_data()
         self.assertEqual(self.expected, result)
 
@@ -202,6 +202,6 @@ class CSVReaderTestCase(unittest.TestCase):
         self.file_name = None
 
     def test_CSVReader(self) -> None:
-        reader: Reader.AbstracterReader = Reader.CSVReader(self.file_name)
+        reader: Reader.AbstractReader = Reader.CSVReader(self.file_name)
         result: list[list[str]] = reader.get_data()
         self.assertEqual(self.expected, result)

@@ -1,20 +1,32 @@
 
 [project]
-name = "MPU-Class-Time-Generator"
-version = "0.1.0"
-description = "Generate MPU class time in a more user-friendly way"
+name = ""
+version = ""
+description = ""
 authors = [
     {name = "Benjamin Chau", email = "68836494+swarfte@users.noreply.github.com"},
 ]
 dependencies = [
     "beautifulsoup4>=4.12.2",
     "setuptools>=68.0.0",
-    "playwright>=1.35.0",
+    "playwright>=1.36.0",
+    "beautifulsoup4==4.12.2",
+    "greenlet==2.0.2",
+    "playwright==1.35.0",
+    "pyee==9.0.4",
+    "setuptools==68.0.0",
+    "soupsieve==2.4.1",
+    "typing-extensions==4.6.3",
 ]
 requires-python = ">=3.10"
 readme = "README.md"
 license = {text = "MIT"}
 
+
 [build-system]
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"
+
+[[tool.pdm.autoexport]]
+filename = "requirements.txt"
+without-hashes = true

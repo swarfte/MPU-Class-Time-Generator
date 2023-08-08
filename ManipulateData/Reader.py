@@ -4,7 +4,7 @@ import os
 import csv
 
 
-class AbstracterReader(ABC):
+class AbstractReader(ABC):
     """
     Abstract class for reading data from the given path
     """
@@ -38,7 +38,7 @@ class AbstracterReader(ABC):
         return self.data
 
 
-class HTMLReader(AbstracterReader):
+class HTMLReader(AbstractReader):
     """
     this class is used to read the html from the path
     """
@@ -53,7 +53,7 @@ class HTMLReader(AbstracterReader):
             return f.read()
 
 
-class CSVReader(AbstracterReader):
+class CSVReader(AbstractReader):
     """
     this class is used to read the csv from the path
     """

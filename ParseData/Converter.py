@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 import Tool.Decorator as Decorator
 import bs4
 import ParseData.Filter as Filter
+import csv
 
 
 class AbstractConverter(ABC):
@@ -100,3 +101,42 @@ class HTML2CSVConverter(AbstractConverter):
         """
         record_filter: Filter.AbstractFilter = Filter.RecordFilter(records)  # it can be optimized
         return record_filter.get_data()
+
+
+class WeekToNumberConverter(AbstractConverter):
+    """
+    this class is used to convert the week to number
+    """
+
+    def __init__(self, data: list[list[str]]) -> None:
+        super().__init__(data)
+        self.title_data: list[str] = data[0][:8] + ["day"]
+        self.original_data: list[list[str]] = data[1:]
+
+    @Decorator.RunTimeMonitor("WeekToNumberConverter: convert")
+    def convert(self) -> list[list[str]]:
+        """
+        convert the week to number
+        :return: the list data that the week is converted to number
+        """
+        records: list[list[str]] = []
+        for row in self.original_data:
+            result:list[list[str]] = self.convertRow(row)
+            records.extend(result)
+        records.insert(0,self.title_data)
+        return records
+
+    def convertRow(self,row:list[str]) -> list[list[str]]:
+        """
+        example :
+        Sem,Class Code,Learning Module,Instructor,Venue,Start time,End time,Time,Sun,Mon,Tue,Wed,Thu,Fri,Sat
+        """
+        check_column:list[int] = [
+            8,9,10,11,12,13,14 # Sun,Mon,Tue,Wed,Thu,Fri,Sat
+        ]
+        day_offset: int = 8
+        records:list[list[str]] = []
+        for day in check_column:
+            if row[day] == "1":
+                records.append(row[:8]+[str(day - day_offset)])
+        return records

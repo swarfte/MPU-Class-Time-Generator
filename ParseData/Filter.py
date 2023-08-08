@@ -145,3 +145,56 @@ class RecordFilter(AbstractFilter):
         """
         attend_symbol: str = " \n\n"  # the original data is " \n\n" if the student need to go to school
         return data == attend_symbol
+
+
+class NullRecordFilter(AbstractFilter):
+    """
+    this class is used to replace the null value in the record , use the previous value to replace it
+    """
+
+    def __init__(self, records: list[list[str]]):
+        super().__init__(records)
+        self.original_data: list[list[str]] = records[1:]
+        self.title_row: list[str] = records[0]
+
+    @Decorator.RunTimeMonitor("NullRecordFilter: filter")
+    def filter(self) -> list[list[str]]:
+        """
+        filter the null value in the record
+        :return: the new records without null value
+        """
+        filterer_data: list[list[str]] = [self.title_row]
+        previous_record: list[str] = self.getFirstNotNullRecord(self.original_data)
+
+        for record in self.original_data:
+            if not self.isNullRecord(record):
+                filterer_data.append(record)
+                previous_record = record
+            else:
+                filterer_data.append(self.replaceNullRecord(record, previous_record))
+
+        return filterer_data
+
+    def isNullRecord(self, record: list[str]) -> bool:
+        """
+        filter the null value in the record
+        """
+        for column in record:
+            if column == "null":
+                return True
+        return False
+
+    def getFirstNotNullRecord(self, records: list[list[str]]) -> list[str]:
+        """
+        get the first record which is not null
+        """
+        for record in records:
+            if not self.isNullRecord(record):
+                return record
+        return []
+
+    def replaceNullRecord(self, record: list[str], previous_record: list[str]) -> list[str]:
+        """
+        replace the null value in the record
+        """
+        return previous_record[:8] + record[8:]
