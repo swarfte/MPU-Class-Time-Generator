@@ -55,17 +55,20 @@ class TableSelector(AbstractSelector):
         return str(table)
 
 
-class EarlyTimeSelector(AbstractSelector):
+class CSVSortSelector(AbstractSelector):
     """
-    this class is used to find The earliest class time from the csv table
+    this class is sort the csv file according to the given column name
     """
 
-    def __init__(self, data: list[list[str]]) -> None:
-        super().__init__(data)
+    def __init__(self, csv_data: list[list[str]], column_name: str):
+        super().__init__(csv_data)
+        self.title_row: list[str] = csv_data[0]
+        self.original_data: list[list[str]] = csv_data[1:]
+        self.column_name: str = column_name
+        self.column_index: int = self.title_row.index(self.column_name)
 
-    @Decorator.RunTimeMonitor("EarlyTimeSelector: selects")
+    @Decorator.RunTimeMonitor("CSVSortSelector: selects")
     def selects(self) -> str | list | dict:
         """
-        Filter the original data
-        :return: filtered data
+        sort the csv file according to the given column index
         """

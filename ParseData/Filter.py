@@ -171,7 +171,8 @@ class NullRecordFilter(AbstractFilter):
                 filterer_data.append(record)
                 previous_record = record
             else:
-                filterer_data.append(self.replaceNullRecord(record, previous_record))
+                if not self.isDeterminedByTeacher(record):
+                    filterer_data.append(self.replaceNullRecord(record, previous_record))
 
         return filterer_data
 
@@ -197,4 +198,15 @@ class NullRecordFilter(AbstractFilter):
         """
         replace the null value in the record
         """
-        return previous_record[:8] + record[8:]
+        # remain the sem, class code, learning module, instructor and venue
+        return previous_record[:3] + record[3:]
+
+    def isDeterminedByTeacher(self, record: list[str]):
+        """
+        check the class time is determined by teacher or not
+        """
+        count: int = 0
+        for column in record:
+            if column == "null":
+                count += 1
+        return count > 3

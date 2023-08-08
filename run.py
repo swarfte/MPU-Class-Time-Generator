@@ -24,9 +24,6 @@ def run() -> None:
     nbsp_filter: Filter.AbstractFilter = Filter.NBSPFilter(original_table)
     filtered_table: str = nbsp_filter.get_data()
 
-    html_writer: Writer.AbstractWriter = Writer.HTMLWriter(filtered_table)
-    html_writer.save_as("original_timetable")
-
     converter: Converter.AbstractConverter = Converter.HTML2CSVConverter(filtered_table)
     header, records = converter.get_data()
 
@@ -37,11 +34,15 @@ def run() -> None:
     null_record_filter: Filter.AbstractFilter = Filter.NullRecordFilter(split_csv_file)
     filtered_csv_file: list[list[str]] = null_record_filter.get_data()
 
-    week_to_number_converter: Converter.AbstractConverter = Converter.WeekToNumberConverter(filtered_csv_file)
+    week_to_number_converter: Converter.AbstractConverter = Converter.WeekdayToNumberConverter(filtered_csv_file)
     converted_csv_file: list[list[str]] = week_to_number_converter.get_data()
 
-    csv_writer: Writer.AbstractWriter = Writer.CSVWriter(converted_csv_file)
+    certain_day_splitter: Splitter.AbstractSpliter = Splitter.CertainDaySplitter(converted_csv_file)
+    split_csv_file: list[list[str]] = certain_day_splitter.get_data()
+
+    csv_writer: Writer.AbstractWriter = Writer.CSVWriter(split_csv_file)
     csv_writer.save_as("timetable")
+
 
 def test():
     csv_reader: Reader.AbstractReader = Reader.CSVReader("timetable")
@@ -50,12 +51,13 @@ def test():
     null_record_filter: Filter.AbstractFilter = Filter.NullRecordFilter(split_csv_file)
     filtered_csv_file: list[list[str]] = null_record_filter.get_data()
 
-    week_to_number_converter: Converter.AbstractConverter = Converter.WeekToNumberConverter(filtered_csv_file)
+    week_to_number_converter: Converter.AbstractConverter = Converter.WeekdayToNumberConverter(filtered_csv_file)
     converted_csv_file: list[list[str]] = week_to_number_converter.get_data()
 
     csv_writer: Writer.AbstractWriter = Writer.CSVWriter(converted_csv_file)
     csv_writer.save_as("converted_timetable")
 
+
 if __name__ == '__main__':
     run()
-    #test()
+    # test()
