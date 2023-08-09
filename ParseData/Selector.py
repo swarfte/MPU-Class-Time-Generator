@@ -60,15 +60,16 @@ class CSVSortSelector(AbstractSelector):
     this class is sort the csv file according to the given column name
     """
 
-    def __init__(self, csv_data: list[list[str]], column_name: str):
+    def __init__(self, csv_data: list[list[str]]):
         super().__init__(csv_data)
         self.title_row: list[str] = csv_data[0]
         self.original_data: list[list[str]] = csv_data[1:]
-        self.column_name: str = column_name
-        self.column_index: int = self.title_row.index(self.column_name)
 
     @Decorator.RunTimeMonitor("CSVSortSelector: selects")
     def selects(self) -> str | list | dict:
         """
         sort the csv file according to the given column index
         """
+        self.original_data.sort(key=lambda record: (record[-1], record[-2]))
+        self.original_data.insert(0, self.title_row)
+        return self.original_data

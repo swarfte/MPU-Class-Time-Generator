@@ -166,12 +166,14 @@ class CertainDaySplitter(AbstractSpliter):
         return (weekday + 1) % 7  # 0 is Sunday, 6 is Saturday
 
     def getFirstDay(self, date: str, class_weekday: int) -> str:
+        """
+        get the first day of the class
+        """
         dt = datetime.datetime.strptime(date, "%Y/%m/%d")
         weekday = self.getWeekday(date)
-
         # if the weekday is before the class weekday, then add the days to the next class weekday
         if weekday < class_weekday:
-            dt += datetime.timedelta(days=weekday)
+            dt += datetime.timedelta(days=(class_weekday - weekday))
         # if the weekday is after the class weekday, then add the days to the next week
         elif weekday > class_weekday:
             dt += datetime.timedelta(days=7 - (weekday - class_weekday))
